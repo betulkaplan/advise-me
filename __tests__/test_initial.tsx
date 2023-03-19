@@ -10,6 +10,6 @@ describe("Home", () => {
 
     const heading = screen.getByRole("button", { name: "Test Me" });
 
-    // expect(heading).toBeInTheDocument();
+    expect(heading).toBeInTheDocument();
   });
 });
