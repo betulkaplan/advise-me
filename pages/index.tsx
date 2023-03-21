@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import { version } from "../package.json";
+import { commmit_sha } from "../package.json";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +15,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        Version: {version}
+        Version: {commmit_sha}
         <button className="bg-red-300 p-2 m-2 rounded">Test Me</button>
       </main>
     </>
