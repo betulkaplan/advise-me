@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
+import { version } from "../package.json";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +16,7 @@ export default function Home() {
       </Head>
       <main>
         Hello next
-        <button>Test Me</button>
+        <button className="bg-red-300 p-2 m-2 rounded">{version}</button>
       </main>
     </>
   );
