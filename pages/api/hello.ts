@@ -6,11 +6,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  try {
-    const prismaResponse = await prisma.user.findMany();
-    console.log("DEBUG", prismaResponse);
-    res.status(200).json(prismaResponse);
-  } catch (error) {
-    res.status(500).json({ error: error });
-  }
+  res.status(200).json({ message: "success" });
+  // try {
+  //   const prismaResponse = await prisma.user.findMany();
+  //   console.log("DEBUG", prismaResponse);
+  //   res.status(200).json(prismaResponse);
+  // } catch (error) {
+  //   res.status(500).json({ error: error });
+  // }
 }
