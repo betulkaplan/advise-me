@@ -81,6 +81,8 @@ jobs:
           echo $(git rev-parse --short "$GITHUB_SHA")
           npm run update_version $(git rev-parse --short "$GITHUB_SHA")
       - name: Build with Next.js
+        env:
+          DATABASE_URL: "postgresql://postgres:aN5mPMDgFA6Cwhcqq7yP@containers-us-west-204.railway.app:5723/railway?schema=public"
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Static HTML export with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next export
