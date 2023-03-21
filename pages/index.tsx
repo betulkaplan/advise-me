@@ -15,8 +15,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        Hello next
-        <button className="bg-red-300 p-2 m-2 rounded">{version}</button>
+        Version: {version}
+        <button className="bg-red-300 p-2 m-2 rounded">Test Me</button>
       </main>
     </>
   );
