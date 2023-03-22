@@ -92,11 +92,12 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:aN5mPMDgFA6Cwhcqq7yP@containers-us-west-204.railway.app:5723/railway?schema=public
         run: npm run build
+      - name: Disable jekyll
+        run: touch ./out/.nojekyll
       - name: Static HTML export with Next.js
         run: npm run export
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
-        run: touch ./out/.nojekyll
         with:
           path: ./out
 
