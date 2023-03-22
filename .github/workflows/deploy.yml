@@ -96,10 +96,9 @@ jobs:
         run: npm run export
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
+        run: touch ./out/.nojekyll
         with:
           path: ./out
-      - name: Disable jekyll
-        run: touch ./out/.nojekyll
 
   # Deployment job
   deploy:
