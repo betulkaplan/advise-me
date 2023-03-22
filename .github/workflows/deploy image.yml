@@ -12,9 +12,6 @@ on:
 env:
   GITHUB_VERSION: ${{ github.event.release.tag_name }}
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
