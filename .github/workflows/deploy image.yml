@@ -37,4 +37,4 @@ jobs:
           docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
           docker build -t betulkaplan/advise-me:testD .
       - name: Push image
-          run: docker push betulkaplan/advise-me:testD
+        run: docker push betulkaplan/advise-me:testD
