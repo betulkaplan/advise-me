@@ -37,4 +37,5 @@ jobs:
       - name: Push image
         run: |
           docker login -u ${{ secrets.CI_REGISTRY_USER }} -p ${{ secrets.CI_REGISTRY_PASSWORD }}
-          docker push betulkaplan/advise-me:$GITHUB_VERSION
+          docker tag betulkaplan/advise-me:$GITHUB_VERSION betulkaplan/advise-me:latest
+          docker push betulkaplan/advise-me --all-tags
