@@ -35,5 +35,5 @@ jobs:
       - name: Build Docker Image
         run: |
           docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-          docker build -t advise-me:$(git rev-parse --short "$GITHUB_SHA") .
+          docker build -t betulkaplan/advise-me:testD .
           docker push betulkaplan/advise-me:testD
