@@ -1,13 +1,23 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
-import { commmit_sha } from "../package.json";
-
-const inter = Inter({ subsets: ["latin"] });
-
-const x = process.env.NEXT_PUBLIC_DATABASE_URL;
+import { useEffect, useState } from "react";
+import packageJson from "../package.json";
+type User = {
+  id: string;
+  email: string;
+  name: string;
+};
 
 export default function Home() {
-  console.log("Base URL", x);
+  const [users, setUsers] = useState<User[]>([]);
+  useEffect(() => {
+    fetch("api/hello")
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("res:", res);
+        setUsers(res);
+      });
+  }, []);
+
   return (
     <>
       <Head>
@@ -17,8 +27,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        Version TEST: {commmit_sha}
-        <button className="bg-red-300 p-2 m-2 rounded">Test Me</button>
+        <div className="bg-red-300">
+          <h3>Users</h3>
+          {users.map((u, index) => {
+            return (
+              <div key={index}>
+                {u.email} - {u.name}
+              </div>
+            );
+          })}
+        </div>
       </main>
     </>
   );
