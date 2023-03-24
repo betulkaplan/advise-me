@@ -27,12 +27,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div>
+        <div className=" flex flex-col items-center">
           <form
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
               e.preventDefault();
-              const email: any = e.currentTarget.elements[0];
-              const name: any = e.currentTarget.elements[1];
+              const email: any = e.currentTarget.elements[1];
+              const name: any = e.currentTarget.elements[0];
               fetch("api/hello", {
                 method: "POST",
                 body: JSON.stringify({
@@ -45,23 +45,68 @@ export default function Home() {
                   console.log("res:", res);
                 });
             }}
+            className="bg-white"
           >
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="fav_language" />
-            <br />
-            <label htmlFor="name">Name</label>
-            <input type="text" id="name" name="fav_language" />
-            <br />
-            <button className="bg-red-200 m-2 p-2 rounded" type="submit">
+            <h1 className="text-gray-800 font-bold text-2xl mb-1">
+              Create User
+            </h1>
+            <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"
+                />
+              </svg>
+              <input
+                className="pl-2 outline-none border-none"
+                type="text"
+                name=""
+                id=""
+                placeholder="Username"
+              />
+            </div>
+            <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                />
+              </svg>
+              <input
+                className="pl-2 outline-none border-none"
+                type="email"
+                name=""
+                id=""
+                placeholder="Email Address"
+              />
+            </div>
+            <button
+              type="submit"
+              className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
+            >
               Submit
             </button>
           </form>
-        </div>
-        <div className="bg-red-300">
           <h3>Users</h3>
           {users.map((u, index) => {
             return (
-              <div key={index}>
+              <div className="bg-red-200 m-2 p-3 rounded w-[500px]" key={index}>
                 {u.email} - {u.name}
               </div>
             );
