@@ -1,3 +1,4 @@
+import useAxios from "axios-hooks";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -9,15 +10,10 @@ type User = {
 };
 
 export default function Home() {
-  const [users, setUsers] = useState<User[]>([]);
-  useEffect(() => {
-    fetch("api/user")
-      .then((res) => res.json())
-      .then((res) => {
-        console.log("res:", res);
-        setUsers(res);
-      });
-  }, []);
+  const [{ data: users, loading }, refetchUsers] = useAxios<User[]>(
+    "api/user",
+    { useCache: false }
+  );
 
   function deleteUser(id: string) {
     console.log("delete this user");
@@ -25,6 +21,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((res) => {
         console.log("deeted user");
+        refetchUsers();
       });
   }
 
@@ -51,7 +48,7 @@ export default function Home() {
               })
                 .then((res) => res.json())
                 .then((res) => {
-                  console.log("res:", res);
+                  refetchUsers();
                 });
             }}
             className="bg-white"
@@ -113,7 +110,7 @@ export default function Home() {
             </button>
           </form>
           <h3>Users</h3>
-          {users.map((u, index) => {
+          {users?.map((u, index) => {
             return (
               <Link key={index} href={`/user/${u.id}`}>
                 <div className="bg-red-200 m-2 p-3 rounded w-[500px] flex justify-between">
