@@ -27,6 +27,36 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        <div>
+          <form
+            onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+              e.preventDefault();
+              const email: any = e.currentTarget.elements[0];
+              const name: any = e.currentTarget.elements[1];
+              fetch("api/hello", {
+                method: "POST",
+                body: JSON.stringify({
+                  email: email.value,
+                  name: name.value,
+                }),
+              })
+                .then((res) => res.json())
+                .then((res) => {
+                  console.log("res:", res);
+                });
+            }}
+          >
+            <label htmlFor="email">Email</label>
+            <input type="email" id="email" name="fav_language" />
+            <br />
+            <label htmlFor="name">Name</label>
+            <input type="text" id="name" name="fav_language" />
+            <br />
+            <button className="bg-red-200 m-2 p-2 rounded" type="submit">
+              Submit
+            </button>
+          </form>
+        </div>
         <div className="bg-red-300">
           <h3>Users</h3>
           {users.map((u, index) => {

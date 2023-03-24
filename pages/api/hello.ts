@@ -7,9 +7,16 @@ export default async function handler(
   res: NextApiResponse<any>
 ) {
   try {
-    const prismaResponse = await prisma.user.findMany();
-    console.log("DEBUG", prismaResponse);
-    res.status(200).json(prismaResponse);
+    if (req.method == "GET") {
+      const prismaResponse = await prisma.user.findMany();
+      res.status(200).json(prismaResponse);
+    } else if (req.method == "POST") {
+      const data = JSON.parse(req.body);
+      const prismaResponse = await prisma.user.create({
+        data,
+      });
+      res.status(200).json(prismaResponse);
+    }
   } catch (error) {
     res.status(500).json({ error: error });
   }
