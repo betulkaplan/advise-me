@@ -27,7 +27,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className=" flex flex-col items-center">
+        <div className="p-5 flex flex-col items-center">
           <form
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
               e.preventDefault();
