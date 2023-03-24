@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import packageJson from "../package.json";
 type User = {
@@ -17,6 +18,15 @@ export default function Home() {
         setUsers(res);
       });
   }, []);
+
+  function deleteUser(id: string) {
+    console.log("delete this user");
+    fetch(`api/user/${id}`, { method: "DELETE" })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("deeted user");
+      });
+  }
 
   return (
     <>
@@ -105,9 +115,23 @@ export default function Home() {
           <h3>Users</h3>
           {users.map((u, index) => {
             return (
-              <div className="bg-red-200 m-2 p-3 rounded w-[500px]" key={index}>
-                {u.email} - {u.name}
-              </div>
+              <Link key={index} href={`/user/${u.id}`}>
+                <div className="bg-red-200 m-2 p-3 rounded w-[500px] flex justify-between">
+                  <span>
+                    {u.email} - {u.name}
+                  </span>
+                  <button
+                    className="bg-gray-300 p-2 rounded"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      deleteUser(u.id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </Link>
             );
           })}
         </div>
