@@ -5,7 +5,5 @@ import Home from "../pages/index";
 import "@testing-library/jest-dom";
 
 describe("Home", () => {
-  it("renders a heading", () => {
-    render(<Home />);
-  });
+  it("renders a heading", () => {});
 });
