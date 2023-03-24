@@ -10,7 +10,7 @@ type User = {
 export default function Home() {
   const [users, setUsers] = useState<User[]>([]);
   useEffect(() => {
-    fetch("api/hello")
+    fetch("api/user")
       .then((res) => res.json())
       .then((res) => {
         console.log("res:", res);
@@ -32,7 +32,7 @@ export default function Home() {
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
               const email: any = e.currentTarget.elements[1];
               const name: any = e.currentTarget.elements[0];
-              fetch("api/hello", {
+              fetch("api/user", {
                 method: "POST",
                 body: JSON.stringify({
                   email: email.value,

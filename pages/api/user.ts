@@ -16,6 +16,7 @@ export default async function handler(
         data,
       });
       res.status(200).json(prismaResponse);
+    } else if (req.method == "GET") {
     }
   } catch (error) {
     res.status(500).json({ error: error });
