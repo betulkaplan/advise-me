@@ -27,6 +27,9 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
+ARG DATABASE_URL
+ARG NEXT_PUBLIC_DATABASE_URL
+
 RUN yarn build
 
 # If using npm comment out above and use below instead

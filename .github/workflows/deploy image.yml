@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v3
       # Build the Docker image
       - name: Build Docker Image
-        run: docker build -t betulkaplan/advise-me:$GITHUB_VERSION .
+        run: docker build --build-arg NEXT_PUBLIC_DATABASE_URL=${{ secrets.DATABASE_URL }} --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} -t betulkaplan/advise-me:$GITHUB_VERSION .
       - name: Push image
         run: |
           docker login -u ${{ secrets.CI_REGISTRY_USER }} -p ${{ secrets.CI_REGISTRY_PASSWORD }}
