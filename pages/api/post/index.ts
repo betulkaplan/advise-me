@@ -15,7 +15,7 @@ export default async function handler(
         res.status(200).json(prismaResponse);
         break;
       case "POST":
-        const data = JSON.parse(req.body);
+        const data = req.body;
         prismaResponse = await prisma.post.create({
           data,
         });
