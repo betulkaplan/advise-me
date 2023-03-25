@@ -11,13 +11,12 @@ export default async function handler(
       const prismaResponse = await prisma.user.findMany();
       res.status(200).json(prismaResponse);
     } else if (req.method == "POST") {
-      const data = req.body;
+      const data = JSON.parse(req.body);
       const prismaResponse = await prisma.user.create({
         data,
       });
       res.status(200).json(prismaResponse);
-    } else {
-      res.status(200).json("Unknown");
+    } else if (req.method == "GET") {
     }
   } catch (error) {
     res.status(500).json({ error: error });

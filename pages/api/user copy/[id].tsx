@@ -7,17 +7,22 @@ export default async function handler(
   res: NextApiResponse<any>
 ) {
   try {
-    if (req.method == "GET") {
-      const prismaResponse = await prisma.user.findMany();
-      res.status(200).json(prismaResponse);
-    } else if (req.method == "POST") {
-      const data = req.body;
-      const prismaResponse = await prisma.user.create({
-        data,
+    const userId = req.query.id;
+    if (req.method == "GET" && userId !== undefined && !Array.isArray(userId)) {
+      const prismaResponse = await prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
       });
       res.status(200).json(prismaResponse);
-    } else {
-      res.status(200).json("Unknown");
+    } else if (req.method == "DELETE" && userId && !Array.isArray(userId)) {
+      const prismaResponse = await prisma.user.delete({
+        where: {
+          id: userId,
+        },
+      });
+      res.status(200).json(prismaResponse);
+    } else if (req.method == "GET") {
     }
   } catch (error) {
     res.status(500).json({ error: error });

@@ -36,6 +36,7 @@ export default function Home() {
         <div className="p-5 flex flex-col items-center">
           <form
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+              e.preventDefault();
               const email: any = e.currentTarget.elements[1];
               const name: any = e.currentTarget.elements[0];
               fetch("api/user", {
@@ -44,6 +45,9 @@ export default function Home() {
                   email: email.value,
                   name: name.value,
                 }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
               })
                 .then((res) => res.json())
                 .then((res) => {
