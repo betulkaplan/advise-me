@@ -2,6 +2,7 @@ import LoadingWrapper from "@/components/LoadingWrapper";
 import useAxios from "axios-hooks";
 import Head from "next/head";
 import Link from "next/link";
+import { toast } from "react-toastify";
 type User = {
   id: string;
   email: string;
@@ -13,15 +14,23 @@ export default function Home() {
     "api/user",
     { useCache: false }
   );
+  const [, executeDeleteUser] = useAxios(
+    {},
+    {
+      manual: true,
+      useCache: false,
+    }
+  );
 
   function deleteUser(id: string) {
     console.log("delete this user");
-    fetch(`api/user/${id}`, { method: "DELETE" })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log("deeted user");
-        refetchUsers();
-      });
+    executeDeleteUser({
+      url: `api/user/${id}`,
+      method: "DELETE",
+    }).then(() => {
+      toast.success("User is deleted.");
+      refetchUsers();
+    });
   }
 
   return (
@@ -51,6 +60,7 @@ export default function Home() {
               })
                 .then((res) => res.json())
                 .then((res) => {
+                  toast.success("User is added!");
                   refetchUsers();
                 });
             }}
