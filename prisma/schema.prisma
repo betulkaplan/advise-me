@@ -20,6 +20,6 @@ model User {
 model Post {
   id          String @id @default(uuid())
   title       String
-  createdBy   User   @relation(fields: [createdById], references: [id])
+  createdBy   User   @relation(fields: [createdById], references: [id], onDelete: Cascade)
   createdById String
 }

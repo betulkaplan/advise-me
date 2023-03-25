@@ -11,7 +11,11 @@ export default async function handler(
   try {
     switch (method) {
       case "GET":
-        prismaResponse = await prisma.post.findMany();
+        prismaResponse = await prisma.post.findMany({
+          include: {
+            createdBy: true,
+          },
+        });
         res.status(200).json(prismaResponse);
         break;
       case "POST":
