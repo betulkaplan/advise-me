@@ -1,8 +1,7 @@
+import LoadingWrapper from "@/components/LoadingWrapper";
 import useAxios from "axios-hooks";
 import Head from "next/head";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import packageJson from "../package.json";
 type User = {
   id: string;
   email: string;
@@ -110,27 +109,29 @@ export default function Home() {
             </button>
           </form>
           <h3>Users</h3>
-          {users?.map((u, index) => {
-            return (
-              <Link key={index} href={`/user/${u.id}`}>
-                <div className="bg-red-200 m-2 p-3 rounded w-[500px] flex justify-between">
-                  <span>
-                    {u.email} - {u.name}
-                  </span>
-                  <button
-                    className="bg-gray-300 p-2 rounded"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      deleteUser(u.id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </Link>
-            );
-          })}
+          <LoadingWrapper isLoading={loading}>
+            {users?.map((u, index) => {
+              return (
+                <Link key={index} href={`/user/${u.id}`}>
+                  <div className="bg-red-200 m-2 p-3 rounded w-[500px] flex justify-between">
+                    <span>
+                      {u.email} - {u.name}
+                    </span>
+                    <button
+                      className="bg-gray-300 p-2 rounded"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        deleteUser(u.id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </Link>
+              );
+            })}
+          </LoadingWrapper>
         </div>
       </main>
     </>
