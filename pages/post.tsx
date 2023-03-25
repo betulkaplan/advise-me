@@ -1,28 +1,15 @@
 import LoadingWrapper from "@/components/LoadingWrapper";
 import PostCard from "@/components/PostCard";
+import { Post } from "@prisma/client";
 import useAxios from "axios-hooks";
 import Head from "next/head";
 import Link from "next/link";
-type Post = {
-  id: string;
-  title: string;
-};
 
 export default function Home() {
   const [{ data: users, loading }, refetchUsers] = useAxios<Post[]>(
     "api/post",
     { useCache: false }
   );
-
-  function deleteUser(id: string) {
-    console.log("delete this user");
-    fetch(`api/user/${id}`, { method: "DELETE" })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log("deeted user");
-        refetchUsers();
-      });
-  }
 
   return (
     <>

@@ -1,13 +1,9 @@
 import LoadingWrapper from "@/components/LoadingWrapper";
+import { User } from "@prisma/client";
 import useAxios from "axios-hooks";
 import Head from "next/head";
 import Link from "next/link";
 import { toast } from "react-toastify";
-type User = {
-  id: string;
-  email: string;
-  name: string;
-};
 
 export default function Home() {
   const [{ data: users, loading }, refetchUsers] = useAxios<User[]>(
