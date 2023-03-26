@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
 
-function SimpleModal({
-  isOpen,
-  onClose,
-  children,
-}: {
+export type SimpleModalProps = {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
-}) {
+};
+
+function SimpleModal({ isOpen, onClose, children }: SimpleModalProps) {
   useEffect(() => {
     const onKeyPress = (event: any) => {
       if (event.key == "Escape") onClose();

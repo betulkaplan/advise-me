@@ -1,4 +1,5 @@
 import LoadingWrapper from "@/components/LoadingWrapper";
+import ConfirmModal from "@/components/modals/ConfirmModal";
 import CreatePostModal from "@/components/modals/CreatePostModal";
 import PostCard from "@/components/PostCard";
 import { PostWithuser } from "@/types/commons";
@@ -9,10 +10,21 @@ import { toast } from "react-toastify";
 
 export default function Home() {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenDeletePostModal, setDeletePostModal] = useState<boolean>(false);
+  const [activePost, setActivePost] = useState<PostWithuser | undefined>(
+    undefined
+  );
 
   const [{ data: posts, loading }, refetchUsers] = useAxios<PostWithuser[]>(
     "api/post",
     { useCache: false }
+  );
+  const [{ loading: deleteLoading }, executeDeletePost] = useAxios(
+    { url: `api/post/${activePost?.id}`, method: "DELETE" },
+    {
+      useCache: false,
+      manual: true,
+    }
   );
 
   return (
@@ -32,6 +44,20 @@ export default function Home() {
             refetchUsers();
           }}
         />
+        <ConfirmModal
+          isOpen={isOpenDeletePostModal}
+          onClose={() => {
+            setDeletePostModal(false);
+            setActivePost(undefined);
+          }}
+          onConfirm={() => {
+            executeDeletePost().then(() => {
+              setDeletePostModal(false);
+              setActivePost(undefined);
+              refetchUsers();
+            });
+          }}
+        />
 
         <button
           onClick={() => setIsOpenModal(true)}
@@ -42,7 +68,17 @@ export default function Home() {
         <div className="grid grid-cols-5 gap-3 mt-2">
           <LoadingWrapper isLoading={loading}>
             {posts?.map((post) => {
-              return <PostCard key={post.id} post={post} />;
+              return (
+                <div
+                  onClick={() => {
+                    setActivePost(post);
+                    setDeletePostModal(true);
+                  }}
+                  key={post.id}
+                >
+                  <PostCard post={post} />
+                </div>
+              );
             })}
           </LoadingWrapper>
         </div>
