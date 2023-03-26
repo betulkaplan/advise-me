@@ -1,12 +1,11 @@
 import LoadingWrapper from "@/components/LoadingWrapper";
 import PostCard from "@/components/PostCard";
-import { Post } from "@prisma/client";
+import { PostWithuser } from "@/types/commons";
 import useAxios from "axios-hooks";
 import Head from "next/head";
-import Link from "next/link";
 
 export default function Home() {
-  const [{ data: users, loading }, refetchUsers] = useAxios<Post[]>(
+  const [{ data: posts, loading }, refetchUsers] = useAxios<PostWithuser[]>(
     "api/post",
     { useCache: false }
   );
@@ -23,8 +22,8 @@ export default function Home() {
         <h3>Posts</h3>
         <div className="p-5 grid grid-cols-5 gap-3">
           <LoadingWrapper isLoading={loading}>
-            {users?.map((u) => {
-              return <PostCard key={u.id} title={u.title} />;
+            {posts?.map((post) => {
+              return <PostCard key={post.id} post={post} />;
             })}
           </LoadingWrapper>
         </div>
