@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const Layout = ({ children }: { children: any }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="grid grid-cols-10 h-screen">
       <div className="col-span-1 p-5 bg-gray-800 text-white ">

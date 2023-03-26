@@ -5,7 +5,7 @@ function LoadingWrapper({
   children,
 }: {
   isLoading: boolean;
-  children: any;
+  children: React.ReactNode;
 }) {
   return (
     <>

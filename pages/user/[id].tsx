@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 
 const UserDetail = () => {
   const router = useRouter();
-  console.log("router", router.query.id);
   useEffect(() => {
     if (router.query.id) {
       fetch(`/api/user/${router.query.id}`)

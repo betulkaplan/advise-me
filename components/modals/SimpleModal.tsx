@@ -6,8 +6,8 @@ function SimpleModal({
   children,
 }: {
   isOpen: boolean;
-  onClose: any;
-  children: any;
+  onClose: () => void;
+  children: React.ReactNode;
 }) {
   useEffect(() => {
     const onKeyPress = (event: any) => {
