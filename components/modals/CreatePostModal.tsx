@@ -1,3 +1,5 @@
+import { Post } from "@prisma/client";
+import useAxios from "axios-hooks";
 import React from "react";
 import SimpleModal from "./SimpleModal";
 
@@ -8,8 +10,12 @@ function CreatePostModal({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  onCreate: (newPost: any) => void;
+  onCreate: (newPost: Post) => void;
 }) {
+  const [{}, createPost] = useAxios<Post>(
+    { url: "api/post", method: "POST" },
+    { manual: true }
+  );
   return (
     <SimpleModal isOpen={isOpen} onClose={onClose}>
       <form
@@ -17,20 +23,12 @@ function CreatePostModal({
           e.preventDefault();
           const title: any = e.currentTarget.elements[0];
           const createdById: any = e.currentTarget.elements[1];
-          fetch("api/post", {
-            method: "POST",
-            body: JSON.stringify({
+          createPost({
+            data: {
               title: title.value,
               createdById: createdById.value,
-            }),
-            headers: {
-              "Content-Type": "application/json",
             },
-          })
-            .then((res) => res.json())
-            .then((res) => {
-              onCreate(res);
-            });
+          }).then(({ data }) => onCreate(data));
         }}
         className="bg-white"
       >
