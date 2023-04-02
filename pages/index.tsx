@@ -5,6 +5,26 @@ import Head from "next/head";
 import Link from "next/link";
 import { toast } from "react-toastify";
 
+import { useSession, signIn, signOut } from "next-auth/react";
+
+export function Component() {
+  const { data: session } = useSession();
+  if (session && session.user) {
+    return (
+      <>
+        Signed in as {session.user.email} <br />
+        <button onClick={() => signOut()}>Sign out</button>
+      </>
+    );
+  }
+  return (
+    <>
+      Not signed in <br />
+      <button onClick={() => signIn()}>Sign in</button>
+    </>
+  );
+}
+
 export default function Home() {
   const [{ data: users, loading }, refetchUsers] = useAxios<UserWithPosts[]>(
     "api/user",
@@ -118,6 +138,7 @@ export default function Home() {
               Submit
             </button>
           </form>
+          <Component />
           <h3>Users</h3>
           <LoadingWrapper isLoading={loading}>
             {users?.map((u, index) => {
