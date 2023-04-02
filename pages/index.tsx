@@ -20,7 +20,12 @@ export function Component() {
   return (
     <>
       Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <button
+        className="bg-red-400 text-white p-3 rounded-lg"
+        onClick={() => signIn()}
+      >
+        Sign in
+      </button>
     </>
   );
 }
