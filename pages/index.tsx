@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 export function Component() {
+  console.log("ID", process.env.GITHUB_ID);
+  console.log("SECRET", process.env.GITHUB_SECRET);
   const { data: session } = useSession();
   if (session && session.user) {
     return (
